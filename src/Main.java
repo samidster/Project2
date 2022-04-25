@@ -1,12 +1,24 @@
 import java.util.Scanner;
 
 public class Main {
+    Users user = null; // инициализация пользователя
+    // создание массива пользователей
+    String[][] users = {{"user", "user", String.valueOf(Roles.USER)},
+                        {"admin", "admin", String.valueOf(Roles.ADMIN)},
+                        {"moderator", "moderator", String.valueOf(Roles.MODERATOR)}};
+
     public static void main(String[] args) {
 
-        String[][] users = {{"user", "user", String.valueOf(Roles.USER)}, {"admin", "admin", String.valueOf(Roles.ADMIN)}, {"moderator", "moderator", String.valueOf(Roles.MODERATOR)}};
-        System.out.println(menu(1));
+        login();
+        System.out.println(user.username + "/" user.password + "/" + user.role);
+        System.out.println(menu(0));
     }
-    //Вывод меню
+
+
+
+
+
+//Процедура menu(int) - вывод меню, где int = 0 - основное меню, 1 - дополнительное
     public static int menu (int menu_type) {
         if (menu_type == 0){
             System.out.println("1 Выполнить вход под другим пользователем \n" +
@@ -32,5 +44,28 @@ public class Main {
             return (menu_item);
         }
 
+    }
+
+    // Процедура авторизации текущего пользователя
+    public static void login() {
+        Scanner scr = new Scanner(System.in);
+        for (int i = 0; i < 2; i++) {
+            switch (i) {
+                case 0:
+                    System.out.println("Enter your username: ");
+                    user.username = scr.nextLine();
+                    break;
+                case 1:
+                    System.out.println("Enter your password: ");
+                    user.password = scr.nextLine();
+                    break;
+            }
+        }
+        // проверка введённых данных с пользователями в массиве
+        for (int i = 0; i < users.length; i++) {
+            if (users[i][0] == user.username && users[i][1] == user.password) {
+                user.role.valueOf(users[i][2]);
+            }
+        }
     }
 }
