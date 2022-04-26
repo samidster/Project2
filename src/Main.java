@@ -1,25 +1,30 @@
 import java.util.Scanner;
 
 public class Main {
-    Users user = null; // инициализация пользователя
+    static Users user = new Users("", "", Roles.USER); // инициализация пользователя
     // создание массива пользователей
-    String[][] users = {{"user", "user", String.valueOf(Roles.USER)},
-                        {"admin", "admin", String.valueOf(Roles.ADMIN)},
-                        {"moderator", "moderator", String.valueOf(Roles.MODERATOR)}};
+    static String[][] users = {{"user", "user", String.valueOf(Roles.USER)},
+                               {"admin", "admin", String.valueOf(Roles.ADMIN)},
+                               {"moderator", "moderator", String.valueOf(Roles.MODERATOR)}};
+    static boolean login_flag = false;
 
     public static void main(String[] args) {
 
-        login();
-        System.out.println(user.username + "/" user.password + "/" + user.role);
-        System.out.println(menu(0));
+        login_flag = login();
+        System.out.println("----- Out current user and login_flag: " + user.username + "/" + user.password + "/" + user.role  + "/" + login_flag);
+
+        System.out.println();
+        menu(menu_print(0));
+        System.out.println("----- Out current user and login_flag: " + user.username + "/" + user.password + "/" + user.role  + "/" + login_flag);
+
     }
 
 
 
 
 
-//Процедура menu(int) - вывод меню, где int = 0 - основное меню, 1 - дополнительное
-    public static int menu (int menu_type) {
+//Процедура menu_print(int) - вывод меню, где int = 0 - основное меню, 1 - дополнительное
+    public static int menu_print (int menu_type) {
         if (menu_type == 0){
             System.out.println("1 Выполнить вход под другим пользователем \n" +
                 "2 Создать новую заметку \n" +
@@ -41,13 +46,31 @@ public class Main {
             System.out.println("Choose menu item: ");
             Scanner scr = new Scanner(System.in);
             int menu_item = scr.nextInt();
-            return (menu_item);
+            return (menu_item+4);
         }
 
     }
 
+    // Процедура обработки меню menu()
+
+    public static void menu(int menu) {
+        switch (menu){
+            case 1: login(); menu(menu_print(0));
+            case 2: if (login_flag) ; break; // вызов процедуры создания заметки
+            case 3: ; break; // вызов процедуры поиска по названию
+            case 4: System.exit(0);
+            case 5: ; break; // вызов процедуры вывода заметки в консоль
+            case 6: ; break; // вызов процедуры изменения названия заметки
+            case 7: ; break; // вызов процедуры замены слова в заметке
+            case 8: ; break; // вызов процедуры замены тела заметки
+            case 9: ; break; // вызов процедуры вывода автора заметки
+            case 10: ; break; // вызов процедуры удаления заметки
+
+        }
+
+    }
     // Процедура авторизации текущего пользователя
-    public static void login() {
+    public static boolean login() {
         Scanner scr = new Scanner(System.in);
         for (int i = 0; i < 2; i++) {
             switch (i) {
@@ -63,9 +86,14 @@ public class Main {
         }
         // проверка введённых данных с пользователями в массиве
         for (int i = 0; i < users.length; i++) {
-            if (users[i][0] == user.username && users[i][1] == user.password) {
-                user.role.valueOf(users[i][2]);
+            if (users[i][0].equals(user.username) && users[i][1].equals(user.password)) {
+                user.role = Roles.valueOf(users[i][2]);
+                login_flag = true;
+                break;
+            } else
+                login_flag = false;
             }
+        if (!login_flag) System.out.println("Login or password incorrect. Please try again.");
+        return login_flag;
         }
     }
-}
