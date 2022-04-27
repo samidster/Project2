@@ -17,6 +17,7 @@ public class Main {
         menu(menu_print(0));
         System.out.println("----- Out current user and login_flag: " + user.username + "/" + user.password + "/" + user.role  + "/" + login_flag);
 
+
     }
 
 
