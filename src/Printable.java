@@ -1,3 +1,3 @@
-public interface Printable {
-    void print(Notes note);
+public interface Printable <T extends Notes> {
+    void print (T note);
 }

@@ -6,6 +6,9 @@ public class Main {
     static String[][] users = {{"user", "user", String.valueOf(Roles.USER)},
                                {"admin", "admin", String.valueOf(Roles.ADMIN)},
                                {"moderator", "moderator", String.valueOf(Roles.MODERATOR)}};
+    // создание массива заметок
+    static Notes[] notesArray = new Notes[5];
+
     static boolean login_flag = false;
 
     public static void main(String[] args) {
@@ -57,7 +60,24 @@ public class Main {
     public static void menu(int menu) {
         switch (menu){
             case 1: login(); menu(menu_print(0));
-            case 2: if (login_flag) ; break; // вызов процедуры создания заметки
+            case 2: if (login_flag&& user.role!=Roles.USER){
+                switch (addNoteType()){
+                    case 1: Notes book = new Books("","","");
+                        notesArray[0] = book.addNote(user.username, book);
+                        book.print(notesArray[0]);
+                        break;
+                    case 2: Notes movie = new Movies("","","", "");
+                        notesArray[1] = movie.addNote(user.username, movie);
+                        movie.print(notesArray[1]);
+                        break;
+                    case 3: Notes recipe = new Recipes("","");
+                        notesArray[2] = recipe.addNote(user.username, recipe);
+                        recipe.print(notesArray[2]);
+                        break;
+                    default:
+                        System.out.println("Выбрано неверное значение"); //// ИСКЛЮЧЕНИЯ!!!
+                }
+            } break;
             case 3: ; break; // вызов процедуры поиска по названию
             case 4: System.exit(0);
             case 5: ; break; // вызов процедуры вывода заметки в консоль
@@ -97,4 +117,13 @@ public class Main {
         if (!login_flag) System.out.println("Login or password incorrect. Please try again.");
         return login_flag;
         }
+
+    // Процедура инициализации типа заметки addNoteType()
+    public static int addNoteType() {
+        Scanner scr = new Scanner(System.in);
+        System.out.println("Выберите тип заметки: \n1. Книга\n2. Фильм\n3. Рецепт");
+        int noteType = scr.nextInt();
+        return noteType;
+    }
+
     }
