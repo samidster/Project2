@@ -50,7 +50,7 @@ public class Main {
                             "4 Change text of note \n" +
                             "5 Print note's author \n" +
                             "6 Delete note \n" +
-                            "7 Main menu \n +" +
+                            "7 Main menu \n" +
                             "8 Print array");
 
             System.out.println("Choose menu item: ");
