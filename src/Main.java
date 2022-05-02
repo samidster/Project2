@@ -72,19 +72,19 @@ public class Main {
                 switch (addNoteType()){
                     case 1: Notes book = new Books("","","");
                         notesArray[emptyIndex()] = book.addNote(user.username, book);
-                        book.print(notesArray[searchedNote]);
+ //                       book.print(notesArray[searchedNote]);
                         System.out.println();
                         menu(menu_print(0));
                         break;
                     case 2: Notes movie = new Movies("","","", "");
                         notesArray[emptyIndex()] = movie.addNote(user.username, movie);
-                        movie.print(notesArray[searchedNote]);
+//                        movie.print(notesArray[searchedNote]);
                         System.out.println();
                         menu(menu_print(0));
                         break;
                     case 3: Notes recipe = new Recipes("","");
                         notesArray[emptyIndex()] = recipe.addNote(user.username, recipe);
-                        recipe.print(notesArray[searchedNote]);
+  //                      recipe.print(notesArray[searchedNote]);
                         System.out.println();
                         menu(menu_print(0));
                         break;
