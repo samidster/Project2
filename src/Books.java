@@ -1,6 +1,5 @@
 import java.util.Scanner;
-
-public class Books extends Notes{
+public class Books extends Notes {
     String bookName;
     String bookWriter;
     String bookPublisher;
@@ -13,28 +12,32 @@ public class Books extends Notes{
 
     @Override
     public Notes addNote(String username, Notes note) {
-        Books note1 = (Books) note;
+        Books book = (Books) note;
         Scanner scr = new Scanner(System.in);
-        System.out.println("Введите название заметки: ");
+        System.out.println("Enter note's name: ");
         note.noteName = scr.nextLine();
         note.noteAuthor = username;
-        System.out.println("Введите название книги: ");
-        note1.bookName = scr.nextLine();
-        System.out.println("Введите писателя: ");
-        note1.bookWriter = scr.nextLine();
-        System.out.println("Введите издательство: ");
-        note1.bookPublisher = scr.nextLine();
-        System.out.println("Введите текст заметки: ");
+        System.out.println("Enter book's name: ");
+        book.bookName = scr.nextLine();
+        System.out.println("Enter writer: ");
+        book.bookWriter = scr.nextLine();
+        System.out.println("Enter publisher: ");
+        book.bookPublisher = scr.nextLine();
+        System.out.println("Enter text of note: ");
         note.noteBody = scr.nextLine();
-        return note1;
+        return book;
     }
 
     @Override
     public void print(Notes obj) {
         Books note = (Books) obj;
-        System.out.printf("Название заметки: %s, Автор заметки: %s.\n" +
-                "Название книги: %s. Писатель: %s. Издательство: %s.\n" +
-                "Заметка: %s", note.noteName, note.noteAuthor, note.bookName, note.bookWriter, note.bookPublisher, note.noteBody);
+        System.out.printf("Note's name: %s, Author: %s.\n" +
+                "Book's name: %s. Writer: %s. Publisher: %s.\n" +
+                "Note: %s", note.noteName, note.noteAuthor, note.bookName, note.bookWriter, note.bookPublisher, note.noteBody);
+    }
+
+    @Override
+    public String toString() {
+        return noteName + " " + noteAuthor + " " + bookName + " " + bookWriter + " " + bookPublisher + " " + noteBody;
     }
 }
-
